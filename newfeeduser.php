@@ -9,39 +9,7 @@ $editrow1 = mysqli_fetch_array($editq1);
 //print_r($editrow);
 
 
-if($_POST){
- 
-    $feedback = $_POST['feedback'];
-    $content = $_POST['content'];
-    $emailid = $_POST['emailid'];
-    $date = date('m/d/Y', time());
-    
-    $searchedvaluepack = $_POST['searchedvaluepack'];
-    $searchvalue = $_POST['searchvalue'];
-    
-    $q = mysqli_query($connection, "insert into feedback(frate, comment, email_id,fdate,ftime)
-values('{$feedback}','{$content}','{$emailid}',now(),now())") or 
-    die(mysqli_error($connection));
-    if($q){
-        echo "<script>alert('Record Updated');window.location='usersideindex.php';</script>";
-    }
-    
-    if($searchedvaluepack){
-        header("location:searchedvaluepack.php?seachedvaluepack={$searchedvaluepack}");
-   
-    }
-    
-    
-    if($searchvalue){
-        header("location:searchedvaluehotel.php?seacrhvalue={$searchvalue}");
-    }
-}
-
-
-
-
 ?>
-
 
 
 <!DOCTYPE html>
@@ -114,37 +82,20 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
 </nav>
 <!-- END nav -->
 
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_1.jpg');">
-  <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg'); height: 300px;">
+    <div class="overlay" style="height: 300px"></div>
   <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate pb-5 text-center">
-          <p class="breadcrumbs"><span class="mr-2"><a href="usersideindex.php">Home <i class="fa fa-chevron-right"></i></a></span> <span>Tour List <i class="fa fa-chevron-right"></i></span></p>
-         <h1 class="mb-0 bread">Tours List</h1>
+      <div class="row no-gutters  align-items-end justify-content-center" style="padding-top:150px">
+      <div class="col-md-12 ftco-animate pb-5 text-center">
+          <p class="breadcrumbs"><span class="mr-2">
+                  <a href="usersideindex.php" style="color:white">Home <i class="fa fa-chevron-right"></i></a></span> 
+              <span style="color:white">New Feedbacks <i class="fa fa-chevron-right"></i></span></p>
+         <h2 style="color:white; font-family:times new roman; font-size: 40px;" class="mb-0 bread">Latest Feedbacks</h2>
      </div>
  </div>
 </div>
 </section>
 
-<section class="ftco-section ftco-no-pb">
-   <div class="container">
-      <div class="row">
-       <div class="col-md-12">
-          
-									<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-                                                                            <form method="post" action="destination.php">
-												
-														<label for="#">Destination</label>
-																	<input type="text" class="form-control" placeholder="Search place" name ="searchedvaluepack" >
-                                                                                                                        <input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary p-0">   
-                                                                                                                        
-   
-												
-										</form>
-									</div>
-</div>
-</div>
-</form>
 </div>
 </div>
 </div>
@@ -155,65 +106,68 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
 			<div class="container">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
-						<span class="subheading">Destination</span>
-						<h2 class="mb-4">Tour Destination</h2>
+						<span class="subheading">Feedbacks</span>
+						<h2 class="mb-4">Latest Feedbacks</h2>
 					</div>
 				</div>
 				<div class="row">
 					
 						
-                                            <?php
-                                    $connection = mysqli_connect("localhost", "root", "","iwt");
+                                           <section class="ftco-section testimony-section bg-bottom " style="background-image: url(images/bg_1.jpg); 
+                                                    padding: 20px 20px 20px 20px; height: 400px;">
+                                               <div class="overlay" style=""></div>
+			
+				<div class="row ftco-animate">
                                     
-                                    $editq2 = mysqli_query($connection, "select * from package where activepack = 1") or 
-                                        die(mysqli_error($connection)); 
-
-                                    
-                                   
-                                    while($editrow2 = mysqli_fetch_array($editq2)){
-                                        
-                                        
-					echo '<div class="col-md-4 ftco-animate">';
-						echo '<div class="project-wrap">';?>
-                                                <a href='#' class='img' style='background-image: url("data:image/jpg;charset=utf8;base64,<?php echo base64_encode($editrow2['image']); ?>"); '>
-                						
-                                                    <?php
-                                                    //echo "<a href='#' class='img' style='background-image:'data:image/jpg;charset=utf8;base64,base64_encode($editrow2['image'])';'>";
-								echo "<span class='price'>\${$editrow2['charge_per_person']}  /person</span>";
-							echo '</a>';
-                                                       
-							echo '<div class="text p-4">';
-                                                                echo "<span class='days'>{$editrow2['days_stay']} Days Tour</span><br/>";
-								echo "<h3><a href='#'>{$editrow2['pack_name']}</a></h3>";
-                                                                echo "<p class='location'><span class='fa fa-map-marker'></span> {$editrow2['des_country']}, {$editrow2['des_state']}, {$editrow2['des_city']}</p>";
-								echo '<ul>';
-                                                                        echo "<li><span class='flaticon-king-size'></span>{$editrow2['days_stay']}</li>";
-									echo "<li><span class='flaticon-king-size'></span>{$editrow2['night_stay']}</li>"; "<p></p>";
-                                                                        echo "<h6><a style='font-size:14px;' href='phpuploader.php?id={$editrow2['tour_id']}'>View_Itineary:{$editrow2['name']}</a></h6>";
-                                                                
-                                                                        echo "<li><span class='flaticon-sun-umbrella'></span>{$editrow2['highlights']}</li>";
-								echo '</ul>';
-                                                        echo "<a href='pack_booking.php?tour_id={$editrow2['tour_id']}' class='btn btn-primary ' style='padding:0px 0px 0px 5px;'>Book It Now</a>"; 
-							echo '</div>';
-                                                        //echo "<td><a href='activatepack.php?id={$row['tour_id']}, admin_id = {$_SESSION['admin_id']}'>Activate</a></td>";
-    
-                                                        
-						echo '</div>';
-					echo '</div>';
-                                       
-					
-                                    }
+					<div class="col-md-12 " >
+						<div class="carousel-testimony owl-carousel" >
+                                                    
+                                                    <?php 
                                                             
+                                                            $connection = mysqli_connect("localhost", "root", "","iwt");
                                     
-                                    
-                                    ?>
-                                    
-                                            
+                                                            $editquery = mysqli_query($connection, "select * from feedback LIMIT 12") or 
+                                                                die(mysqli_error($connection));
+
+                                                            while( $rowfeed = mysqli_fetch_array($editquery)){
+                                                                $i = $rowfeed['frate'];
+                                                               
+                                                                echo '<div class="item">';
+								echo '<div class="testimony-wrap py-4">';
+                                                                        echo '<div class="text">
+										<p class="star">';
+                                                                        while($i>0){
+                                                                        echo '<span class="fa fa-star"></span>';
+                                                                        $i = $i - 1;
+                                                                        }
+											
+										echo '</p>';?>
+                                                    <p class="mb-4" style=" height: 150px; padding: 10px 10px 10px 10px " > <?php
+                                                                                if($rowfeed['comment'] !== ""){
+                                                                                    echo "{$rowfeed['comment']}";}?></p>
+                                                                                <?php 
+                                                                                echo '<div class="d-flex align-items-center" style:>
+											<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+											<div class="pl-3">
+                                                                                                <p class="name">';echo "{$rowfeed['name']}";
+                                                                                                echo '</p>';
+                                                                                                
+											echo '</div>';
+	
+										echo '</div>';
+                                                                                echo '</div>';
+								echo '</div>';
+							echo '</div>';
+                                                            }
+                                                            
+                                                            ?>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		
+
+
 
 
 <section class="ftco-intro ftco-section ftco-no-pt">

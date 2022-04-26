@@ -23,7 +23,7 @@ if($_POST){
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
          
         // Allow certain file formats 
-        $allowTypes = array('jpg','png','jpeg','gif'); 
+        $allowTypes = array('jpg','png','jpeg','gif','JPG','PNG','JPEG'); 
         if(in_array($fileType, $allowTypes)){ 
             $image = $_FILES['image']['tmp_name']; 
             $imgContent = addslashes(file_get_contents($image)); 
@@ -31,23 +31,24 @@ if($_POST){
             // Insert image content into database 
             //$insert = $db->query("INSERT into package (image) VALUES ('$imgContent')"); 
              
-             $q1 = mysqli_query($connection, "update package set image = '{$imgContent}' where tour_id='{$editid}'") or 
+             /*$q1 = mysqli_query($connection, "insert into package(image)
+            values('{$imgContent}')") or 
     die(mysqli_error($connection));
-
+   
             if($q1){ 
                 $status = 'success'; 
                 $statusMsg = "File uploaded successfully."; 
             }else{ 
                 $statusMsg = "File upload failed, please try again."; 
-            }  
+            }  */
         }else{ 
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
         } 
     }else{ 
         $statusMsg = 'Please select an image file to upload.'; 
-    } 
+    }
     
-    if(!empty($_FILES["myfile"]["name"])) { 
+    /*if(!empty($_FILES["myfile"]["name"])) { 
         // Get file info 
         $fileName1 = basename($_FILES["myfile"]["name"]); 
         $fileType1 = pathinfo($fileName1, PATHINFO_EXTENSION); 
@@ -61,7 +62,7 @@ if($_POST){
             // Insert image content into database 
             //$insert = $db->query("INSERT into package (image) VALUES ('$imgContent')"); 
              
-             /*/$q2 = mysqli_query($connection, "insert into package(pdf_doc)
+             /*//*$q2 = mysqli_query($connection, "insert into package(pdf_doc)
             values('{$imgContent1}')") or 
     die(mysqli_error($connection));
             
@@ -71,12 +72,20 @@ if($_POST){
             }else{ 
                 $statusMsg = "File upload failed, please try again."; 
             }  */
+            
+            /*$q12 = mysqli_query($connection, "update package set name='{$fileName1}',type='{$fileType1}',pdf_doc='{$imgContent1}'
+     where tour_id='{$editid}'") or 
+    die(mysqli_error($connection));
+     if($q12){
+      $status = 'success'; 
+                $statusMsg = "File uploaded successfully.";    
+     }
         }else{ 
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
         } 
     }else{ 
         $statusMsg = 'Please select an image file to upload.'; 
-    }
+    }*/
  
 
     $pack_name = $_POST['pack_name'];
@@ -88,15 +97,22 @@ if($_POST){
     $days_stay = $_POST['days_stay'];
     $night_stay = $_POST['night_stay'];
     $tour_type_id = $_POST['tour_type_id'];
+
    // $image = $_POST['image'];
+    //$image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
     $activepack = $_POST['activepack'];
     
+    /*$name = $_FILES['myfile']['name'];
+    $type = $_FILES['myfile']['type'];
+    $data = $_FILES['myfile']['tmp_name'];
+    $data1 = file_get_contents($data);*/    
         
     
     $q = mysqli_query($connection, "update package set pack_name='{$pack_name}',
     des_country='{$des_country}',des_state='{$des_state}', des_city= '{$des_city}', highlights = '{$highlights}',
     charge_per_person = '{$charge_per_person}', days_stay = '{$days_stay}', night_stay = '{$night_stay}',
-    tour_type_id = '{$tour_type_id}' , activepack = '{$activepack}',name='{$fileName1}',type='{$fileType1}',pdf_doc='{$imgContent1}' where tour_id='{$editid}'") or 
+    tour_type_id = '{$tour_type_id}' , activepack = '{$activepack}',
+    image='{$imgContent}' where tour_id='{$editid}'") or 
     die(mysqli_error($connection));
     if($q){
         echo "<script>alert('Record Updated');window.location='package.php';</script>";

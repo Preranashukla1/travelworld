@@ -49,37 +49,6 @@ if($_POST){
         $statusMsg = 'Please select an image file to upload.'; 
     }
     
-    if(!empty($_FILES["myfile"]["name"])) { 
-        // Get file info 
-        $fileName1 = basename($_FILES["myfile"]["name"]); 
-        $fileType1 = pathinfo($fileName1, PATHINFO_EXTENSION); 
-         
-        $allowTypes1 = array('pdf','jpeg','jpg'); 
-        if(in_array($fileType1, $allowTypes1)){ 
-            $image1 = $_FILES['myfile']['tmp_name']; 
-            $imgContent1 = file_get_contents($_FILES['myfile']['tmp_name']);
-                    
-             
-            // Insert image content into database 
-            //$insert = $db->query("INSERT into package (image) VALUES ('$imgContent')"); 
-             
-             /*/$q2 = mysqli_query($connection, "insert into package(pdf_doc)
-            values('{$imgContent1}')") or 
-    die(mysqli_error($connection));
-            
-            if($q1){ 
-                $status = 'success'; 
-                $statusMsg = "File uploaded successfully."; 
-            }else{ 
-                $statusMsg = "File upload failed, please try again."; 
-            }  */
-        }else{ 
-            $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-        } 
-    }else{ 
-        $statusMsg = 'Please select an image file to upload.'; 
-    }
- 
     $pack_name = $_POST['pack_name'];
     $des_country = $_POST['des_country'];
     $des_state = $_POST['des_state'];
@@ -97,13 +66,15 @@ if($_POST){
     /*$name = $_FILES['myfile']['name'];
     $type = $_FILES['myfile']['type'];
     $data = $_FILES['myfile']['tmp_name'];
-    $data1 = file_get_contents($data);*/
+    $data1 = file_get_contents($data);
+,name,pdf_doc,type  
+     * ,'{$fileName1}','{$imgContent1}','{$fileType1}'   */
     
     $q = mysqli_query($connection, "insert into package(pack_name, des_country, des_state, des_city, highlights, charge_per_person, days_stay
-        , night_stay, tour_type_id, activepack, image,name,pdf_doc,type)
+        , night_stay, tour_type_id, activepack, image)
             values('{$pack_name}','{$des_country}','{$des_state}','{$des_city}', '{$highlights}', '{$charge_per_person}',
-            '{$days_stay}', '{$night_stay}', '{$tour_type_id}', '{$activepack}','{$imgContent}','{$fileName1}','{$imgContent1}','{$fileType1}')") or 
-    die(mysqli_error($connection));
+            '{$days_stay}', '{$night_stay}', '{$tour_type_id}', '{$activepack}','{$imgContent}')") or 
+die(mysqli_error($connection));
             
     if($q){
         echo "<script>alert('Record Updated');window.location='package.php';</script>";
@@ -282,7 +253,6 @@ input{
                     <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Nights:<input type="number" value="" name="night_stay"/> </div><br/>
                     <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Tour Type Id:<input type="number" value="" name="tour_type_id"/> </div><br/>
                     <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Image:<input type="file" value="" name="image"/> </div><br/>
-                    <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Itineary:<input type="file" name="myfile"/> </div><br/>
                     <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Active Status:<input type="number" value="" name="activepack"/> </div><br/>
                    
 

@@ -1,5 +1,6 @@
 <?php
 require_once 'sendEmails.php';
+require_once 'sendEmails1.php';
 session_start();
 $email = "";
 $errors = [];
@@ -140,3 +141,39 @@ if (isset($_POST['login-btn1'])) {
         }
     }
     
+    
+    
+  if (isset($_POST['queryreply'])) {
+    /*$username = $_POST['username'];
+    
+    $email = $_POST['email'];
+    $token = bin2hex(random_bytes(50)); // generate unique token
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); //encrypt password*/
+    
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    
+    sendVerificationEmail1($email,$name,$message,$subject);
+    }
+    
+    if (isset($_POST['querymade'])) {
+    /*$username = $_POST['username'];
+    
+    $email = $_POST['email'];
+    $token = bin2hex(random_bytes(50)); // generate unique token
+    $password = password_hash($_POST['passwor   d'], PASSWORD_DEFAULT); //encrypt password*/
+    
+    $name = $_POST['name'];
+    $email = $_POST['emailid'];
+    $subject = "New Query From user emailid as '{$email}'";
+    $msg = $_POST['qinfo'];
+    $message = "<h2>The Query is as follows: '{$msg}' <p></p> <a href='https://localhost/project_iwt/query.php'>Go to Query Page</a></h2>";
+    
+        
+    
+    sendVerificationEmail2($email,$name,$message,$subject);
+    }
+
+      

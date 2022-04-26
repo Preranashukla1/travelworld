@@ -8,24 +8,30 @@ die(mysqli_error($connection));
 $editrow1 = mysqli_fetch_array($editq1);
 //print_r($editrow);
  
-
-if($_POST){
+if(isset($_POST['feedback'])){
  
     $feedback = $_POST['feedback'];
     $content = $_POST['content'];
     $emailid = $_POST['emailid'];
+    $name = $_POST['name'];
     $date = date('m/d/Y', time());
     
-    $searchedvaluepack = $_POST['searchedvaluepack'];
-    $searchvalue = $_POST['searchvalue'];
     
-    $q = mysqli_query($connection, "insert into feedback(frate, comment, email_id,fdate,ftime)
-values('{$feedback}','{$content}','{$emailid}',now(),now())") or 
+    
+    
+    $q = mysqli_query($connection, "insert into feedback(frate, comment, email_id,fdate,ftime,name)
+values('{$feedback}','{$content}','{$emailid}',now(),now(),'{$name}')") or 
     die(mysqli_error($connection));
     if($q){
         echo "<script>alert('Record Updated');window.location='usersideindex.php';</script>";
     }
     
+    
+}
+
+if($_POST){
+    $searchedvaluepack = $_POST['searchedvaluepack'];
+    $searchvalue = $_POST['searchvalue'];
     if($searchedvaluepack){
         header("location:searchedvaluepack.php?seachedvaluepack={$searchedvaluepack}");
    
@@ -36,6 +42,7 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
         header("location:searchedvaluehotel.php?seacrhvalue={$searchvalue}");
     }
 }
+
 
 
 
@@ -87,28 +94,27 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
 					<li class="nav-item"><a href="hoteluser.php" class="nav-link">Hotel</a></li>
 					<li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
 					<li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn">Dropdown</button>
+                                            <div class="dropdown-content">
+                                              <a href="newfeeduser.php">Latest Feedbacks</a>
+                                              <a href="bestfeeduser.php">Best Feedbacks</a>
+                                              <a href="negfeeduser.php">Categorising Feedbacks</a>
+                                            </div>
+                                          </div>
                                         
+                                        
+                                        <div class="dropdown">
+                                            <button class="dropbtn"><i class="fa fa-user"></i><i class="fa fa-caret-down"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="login.php">Login as User</a>
+                                                <a href="loginadmin.php">Login as User</a>
+                                                <a href="signup.php">Signup as User</a>
+                                                <a href="logout.php">Logout</a>
+                                            </div>
+                                          </div>
                                             
-                                            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="login.php"><i class="fa fa-user fa-fw"></i> Login as User</a>
-                        </li>
-                        <li><a href="loginadmin.php"><i class="fa fa-user fa-fw"></i> Login as Admin</a>
-                        </li>
-                        <li><a href="signup.php"><i class="fa fa-user fa-fw"></i> Signup as User</a>
-                        </li>
-                        <li><a href="logout.php"><i class="fa fa-user fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-                                </li>
+                                            
 
 				</ul>
 			</div>
@@ -246,7 +252,7 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
 					</div>
 				</div>
 			</div>
-			<div class="container container-2">
+			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="carousel-destination owl-carousel ftco-animate">
@@ -400,17 +406,18 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
                                                                 die(mysqli_error($connection));
 
                                                             while( $rowfeed = mysqli_fetch_array($editquery)){
+                                                                $i = $rowfeed['frate'];
                                                                
                                                                 echo '<div class="item">';
 								echo '<div class="testimony-wrap py-4">';
                                                                         echo '<div class="text">
-										<p class="star">
-											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
-										</p>';?>
+										<p class="star">';
+                                                                        while($i>0){
+                                                                        echo '<span class="fa fa-star"></span>';
+                                                                        $i = $i - 1;
+                                                                        }
+											
+										echo '</p>';?>
                                                     <p class="mb-4" style=" height: 150px; padding: 10px 10px 10px 10px " > <?php
                                                                                 if($rowfeed['comment'] !== ""){
                                                                                     echo "{$rowfeed['comment']}";}?></p>
@@ -418,8 +425,8 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
                                                                                 echo '<div class="d-flex align-items-center" style:>
 											<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
 											<div class="pl-3">
-												<p class="name">Roger Scott</p>
-												<span class="position">Marketing Manager</span>
+                                                                                                <p class="name">';echo "{$rowfeed['name']}";
+                                                                                                echo '</p>
 											</div>';
 											
 										echo '</div>';
@@ -477,11 +484,14 @@ values('{$feedback}','{$content}','{$emailid}',now(),now())") or
             <!--Text Message-->
             <div class="text-center">
                 <h4>What could we improve?</h4>
-            </div> <textarea type="textarea" placeholder="Your Message" rows="3" name = 'content'></textarea> <!-- Modal Footer-->
+            </div> <textarea type="textarea" placeholder="Your Message" rows="3" name = 'content' required></textarea> <!-- Modal Footer-->
             
             <h4> Email Id </h4>
-            <input type="email" placeholder="Your Email Id" name = 'emailid'/>
-            <div class="modal-footer"> <input type="submit" value="Submit" class="btn1 btn-dark">
+            <input type="email" placeholder="Your Email Id" name = 'emailid' required/>
+            
+            <h4> Your Name </h4>
+            <input type="text" placeholder="Your Name" name = 'name' required/>
+            <div class="modal-footer"><button type="submit" name="feedback" class="btn1 btn-dark">Submit</button>
                     <a href="" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a> </div>
         </div>
     </div>
@@ -612,6 +622,48 @@ a {
 input {
     color: #007bff
 }
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 24px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: orangered;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: transparent;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: transparent}
 </style>
 		</body>
                 

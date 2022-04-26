@@ -181,6 +181,7 @@ $connection = mysqli_connect("localhost","root", "", "iwt");
     /*echo "<li> <a target='_blank' href = 'phpuploader.php?id=".$row['tour_id']."'> ".$row['name']."</a>"
                         . "<br/><embed width='150' src='data: ".$row['type'].";base64,".base64_encode($row['pdf_doc'])."'/></li>";*/
                 
+    echo "<td><a href='additineary.php?id={$row['tour_id']}, admin_id = {$_SESSION['admin_id']}'>Add Itineary</a></td>";
     echo "<td><a target='_blank' href='phpuploader.php?id={$row['tour_id']}'>";echo "{$row['name']}</a></td>";
    
     

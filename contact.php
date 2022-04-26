@@ -1,5 +1,6 @@
 <?php
-session_start();
+include 'controllers/authController.php' ;
+
 $connection = mysqli_connect("localhost", "root", "","iwt");
 
 //Fetch Data
@@ -71,25 +72,27 @@ values('{$name}','{$emailid}','{$qinfo}',now(),now())") or
 					<li class="nav-item"><a href="hoteluser.php" class="nav-link">Hotel</a></li>
 					<li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
 					<li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-                                        <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="login.php"><i class="fa fa-user fa-fw"></i> Login as User</a>
-                        </li>
-                        <li><a href="loginadmin.php"><i class="fa fa-user fa-fw"></i> Login as Admin</a>
-                        </li>
-                        <li><a href="signup.php"><i class="fa fa-user fa-fw"></i> Signup as User</a>
-                        </li>
-                        <li><a href="logout.php"><i class="fa fa-user fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
+                                        
+                                            <div class="dropdown">
+                                            <button class="dropbtn">Dropdown</button>
+                                            <div class="dropdown-content">
+                                              <a href="newfeeduser.php">Latest Feedbacks</a>
+                                              <a href="bestfeeduser.php">Best Feedbacks</a>
+                                              <a href="negfeeduser.php">Categorising Feedbacks</a>
+                                            </div>
+                                          </div>
+                                        
+                                        
+                                        <div class="dropdown">
+                                            <button class="dropbtn"><i class="fa fa-user"></i><i class="fa fa-caret-down"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="login.php">Login as User</a>
+                                                <a href="loginadmin.php">Login as User</a>
+                                                <a href="signup.php">Signup as User</a>
+                                                <a href="logout.php">Logout</a>
+                                            </div>
+                                          </div>
+                 
        </ul>
      </div>
    </div>
@@ -157,16 +160,16 @@ values('{$name}','{$emailid}','{$qinfo}',now(),now())") or
       <div class="col-md-6 order-md-last d-flex">
           <form action="contact.php" class="bg-light p-5 contact-form" method="post">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Name" name = "name">
+            <input type="text" class="form-control" placeholder="Your Name" required name = "name">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Email" name = "emailid">
+              <input type="text" class="form-control" placeholder="Your Email" required name = "emailid">
           </div>
           <div class="form-group">
-            <textarea  id="" cols="30" rows="7" class="form-control" placeholder="Message" name = "qinfo"></textarea>
+            <textarea  id="" cols="30" rows="7" class="form-control" placeholder="Message" required name = "qinfo"></textarea>
           </div>
           <div class="form-group">
-            <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+              <input type="submit" value="Send Message" name="querymade" class="btn btn-primary py-3 px-5">
           </div>
         </form>
         
@@ -273,6 +276,87 @@ values('{$name}','{$emailid}','{$qinfo}',now(),now())") or
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+
+
+<style>
+    .modal-dialog {
+    height: 50%;
+    width: 50%;
+    margin: auto
+}
+
+.modal-header {
+    color: white;
+    background-color: #007bff
+}
+
+textarea {
+    border: none;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    outline: 0px !important
+}
+
+.openmodal {
+    margin-left: 35%;
+    width: 25%;
+}
+
+.icon1 {
+    color: #007bff
+}
+
+a {
+    margin: auto
+}
+
+input {
+    color: #007bff
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 24px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: orangered;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: transparent;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: transparent}
+</style>
+
 
 </body>
 </html>

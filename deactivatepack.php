@@ -16,7 +16,7 @@ $editrow = mysqli_fetch_array($editq);
  $q = mysqli_query($connection, "update package set  activepack=0  where tour_id='{$editid}'") or 
     die(mysqli_error($connection));
     if($q){
-        echo "<script>alert('Marked As Activated');window.location='package.php';</script>";
+        echo "<script>alert('Marked As DeActivated');window.location='package.php';</script>";
     }
 
 ?>

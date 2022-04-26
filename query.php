@@ -122,14 +122,7 @@ $connection = mysqli_connect("localhost","root", "", "iwt");
                                                $connection = mysqli_connect("localhost", "root", "","iwt");
  
                             $q = mysqli_query($connection, "SELECT
-                                 `query`.`qdate`,
-                                 `query`.`query_id`,
-                                 `query`.`qtime`,
-                                 `query`.`user_id`,
-                                 `query`.`admin_id`,
-                                 `query`.`seen_status`,
-                                 `query`.`complete_status`,
-                                 `query`.`qinfo`
+                                 *
                                     
                                     
                             FROM
@@ -149,7 +142,7 @@ $connection = mysqli_connect("localhost","root", "", "iwt");
                             echo "<th>User Id</th>";
                             echo "<th>Date</th>";
                             echo "<th>Admin Id</th>";
-                            
+                            echo "<th>Email_Id</th>";
                             echo "<th>Seen Status</th>";
                             echo "<th>Complete Status</th>";
                             
@@ -161,12 +154,14 @@ $connection = mysqli_connect("localhost","root", "", "iwt");
                                 echo "<td>{$row['user_id']}</td>";
                                 echo "<td>{$row['qdate']}</td>";
                                 echo "<td>{$row['admin_id']}</td>";
+                                echo "<td>{$row['emailid']}</td>";
                                 echo "<td>{$row['seen_status']}</td>";
-                                    echo "<td>{$row['complete_status']}</td>";
+                                echo "<td>{$row['complete_status']}</td>";
                                    
                                    
     echo "<td><a href='seenquery.php?id={$row['query_id']}, admin_id = {$_SESSION['admin_id']}'>Mark As Seen</a></td>";
     echo "<td><a href='completequery.php?id={$row['query_id']}, admin_id = {$_SESSION['admin_id']}'>Mark As Complete</a></td>";
+    echo "<td><a href='queryreply.php?id={$row['query_id']}, admin_id = {$_SESSION['admin_id']}'>Reply To Query</a></td>";
    
     
                                 echo "</tr>";

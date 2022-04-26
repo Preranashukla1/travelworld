@@ -52,22 +52,27 @@ if($_POST){
 					<li class="nav-item"><a href="hoteluser.php" class="nav-link">Hotel</a></li>
 					<li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
 					<li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li><ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="login.php"><i class="fa fa-user fa-fw"></i> Login as User</a>
-                        </li>
-                        <li><a href="loginadmin.php"><i class="fa fa-user fa-fw"></i> Login as Admin</a>
-                        </li>
-                        <li><a href="signup.php"><i class="fa fa-user fa-fw"></i> Signup as User</a>
-                        </li>
-                        <li><a href="logout.php"><i class="fa fa-user fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
+                                            <div class="dropdown">
+                                            <button class="dropbtn">Dropdown</button>
+                                            <div class="dropdown-content">
+                                              <a href="newfeeduser.php">Latest Feedbacks</a>
+                                              <a href="bestfeeduser.php">Best Feedbacks</a>
+                                              <a href="negfeeduser.php">Categorising Feedbacks</a>
+                                            </div>
+                                          </div>
+                                        
+                                        
+                                        <div class="dropdown">
+                                            <button class="dropbtn"><i class="fa fa-user"></i><i class="fa fa-caret-down"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="login.php">Login as User</a>
+                                                <a href="loginadmin.php">Login as User</a>
+                                                <a href="signup.php">Signup as User</a>
+                                                <a href="logout.php">Logout</a>
+                                            </div>
+                                          </div>
+                                        
+                
                 <!-- /.dropdown -->
             </ul>
        </ul>
@@ -237,6 +242,86 @@ if($_POST){
 				</div>
 			</footer>
 
+
+ 
+<style>
+    .modal-dialog {
+    height: 50%;
+    width: 50%;
+    margin: auto
+}
+
+.modal-header {
+    color: white;
+    background-color: #007bff
+}
+
+textarea {
+    border: none;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    outline: 0px !important
+}
+
+.openmodal {
+    margin-left: 35%;
+    width: 25%;
+}
+
+.icon1 {
+    color: #007bff
+}
+
+a {
+    margin: auto
+}
+
+input {
+    color: #007bff
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 24px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: orangered;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: transparent;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: transparent}
+</style>
 
 
 <!-- loader -->
